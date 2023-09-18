@@ -521,7 +521,7 @@ extension DSFStepperView: UITextFieldDelegate {
 			return true
 		}
 
-		if let val = self.numberFormatter.number(from: text)?.cgFloatValue,
+        if let val = self.numberFormatter.number(from: text.trimmingCharacters(in: .whitespacesAndNewlines))?.cgFloatValue,
 			self.range.contains(val)
 		{
 			return true
@@ -529,6 +529,11 @@ extension DSFStepperView: UITextFieldDelegate {
 
 		return false
 	}
+
+    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 
 	public func textFieldDidEndEditing(_ textField: UITextField) {
 		if self.allowsEmpty, textField.text?.isEmpty ?? true {
