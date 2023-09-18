@@ -65,6 +65,8 @@ public class DSFStepperView: UIView {
 	/// Allow the user to manually enter text
 	@IBInspectable public var allowsKeyboardInput: Bool = false
 
+    @IBInspectable public var selectAllOnBegin: Bool = false
+
 	/// Placeholder text to display if the field is empty
 	@IBInspectable public var placeholder: String? = "Inherited" {
 		didSet {
@@ -490,8 +492,11 @@ extension DSFStepperView: UITextFieldDelegate {
 		return self.allowsKeyboardInput
 	}
 
-	public func textFieldDidBeginEditing(_: UITextField) {
+    public func textFieldDidBeginEditing(_ textField: UITextField) {
 		self._previousValue = self._floatValue
+        if selectAllOnBegin {
+            textField.selectAll(nil)
+        }
 	}
 
 	public func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
