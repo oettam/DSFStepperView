@@ -500,7 +500,7 @@ extension DSFStepperView: UITextFieldDelegate {
 	}
 
 	public func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-		if self.allowsEmpty, textField.text?.isEmpty ?? false {
+		if textField.text?.isEmpty ?? false {
 			return true
 		}
 
@@ -522,7 +522,7 @@ extension DSFStepperView: UITextFieldDelegate {
 
 		text = text.replacingCharacters(in: ran, with: string)
 
-		if self.allowsEmpty, text.isEmpty {
+		if text.isEmpty {
 			return true
 		}
 
@@ -541,6 +541,10 @@ extension DSFStepperView: UITextFieldDelegate {
     }
 
 	public func textFieldDidEndEditing(_ textField: UITextField) {
+        if !self.allowsEmpty, textField.text?.isEmpty ?? true {
+            self._floatValue = self._previousValue
+            return
+        }
 		if self.allowsEmpty, textField.text?.isEmpty ?? true {
 			self._floatValue = nil
 			return
