@@ -325,6 +325,7 @@ public class DSFStepperView: UIView {
 		}
 
 		self.editField.textAlignment = .center
+        self.editField.keyboardType = .numbersAndPunctuation
 		self.editField.delegate = self
 
 		self.plusButton.setImage(UIImage(systemName: "plus"), for: .normal)
